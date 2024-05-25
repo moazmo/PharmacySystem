@@ -3,7 +3,17 @@ from PIL import Image, ImageTk
 from tkinter import ttk
 import mysql.connector
 from tkinter import messagebox
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+conn = mysql.connector.connect(
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME")
+)
 
 class PharmacyManagementSystem:
     def __init__(self, root):
@@ -93,7 +103,12 @@ class PharmacyManagementSystem:
         lblRef = Label(DataFrameLeft, font=("arial", 12, "bold"), text="Reference No", padx=2)
         lblRef.grid(row=0, column=0, sticky=W)
         
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("select Ref from pharma")
         row = c.fetchall()
@@ -120,7 +135,12 @@ class PharmacyManagementSystem:
         lblMedicineName = Label(DataFrameLeft, font=("arial", 12, "bold"), text="Medicine Name", padx=2, pady=6)
         lblMedicineName.grid(row=3, column=0, sticky=W)
         
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("select MedName from pharma")
         med = c.fetchall()
@@ -325,7 +345,12 @@ class PharmacyManagementSystem:
         
     # =============== Add Medicine Functionality Declaration (DB) =============== #
     def add_medicine(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("insert into pharma(Ref,MedName) values(%s,%s)",
                 (
@@ -340,7 +365,12 @@ class PharmacyManagementSystem:
         messagebox.showinfo("Success", "Medicine Added")
     
     def fetch_dataMed(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("select * from pharma")
         rows = c.fetchall()
@@ -363,7 +393,12 @@ class PharmacyManagementSystem:
         if self.refMed_var.get() == "" or self.addMed_var.get() == "":
             messagebox.showerror("Error", "All fields are required")
         else:
-            conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+            conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
             c = conn.cursor()
             c.execute("update pharma set MedName=%s where Ref=%s", (self.addMed_var.get(), self.refMed_var.get()))
             conn.commit()
@@ -373,7 +408,12 @@ class PharmacyManagementSystem:
             messagebox.showinfo("Success", "Medicine Updated")
     
     def deleteMed(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("delete from pharma where Ref=%s", (self.refMed_var.get(),))
         conn.commit()
@@ -389,7 +429,12 @@ class PharmacyManagementSystem:
         if self.ref_var.get() == "" or self.lotno_var.get() == "" or self.issuedate_var.get() == "" or self.expdate_var.get() == "" or self.uses_var.get() == "" or self.sideeffects_var.get() == "" or self.warning_var.get() == "" or self.dosage_var.get() == "" or self.price_var.get() == "" or self.productqt_var.get() == "":
             messagebox.showerror("Error", "All fields are required")
         else:
-            conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+            conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
             c = conn.cursor()
             c.execute("insert into pharmacy values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                     (
@@ -414,7 +459,12 @@ class PharmacyManagementSystem:
             messagebox.showinfo("Success", "Data Added")
         
     def fetch_data(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("select * from pharmacy")
         rows = c.fetchall()
@@ -447,7 +497,12 @@ class PharmacyManagementSystem:
         if self.ref_var.get() == "":
             messagebox.showerror("Error", "All fields are required")
         else:
-            conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+            conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
             c = conn.cursor()
             c.execute("update pharmacy set CmpName=%s, TypeMed=%s, medname=%s, LotNo=%s, Issuedate=%s, Expdate=%s, uses=%s, Sideeffect=%s, warning=%s, dosage=%s, price=%s, product=%s where Ref_No=%s", (
                 self.cmpname_var.get(),
@@ -471,7 +526,12 @@ class PharmacyManagementSystem:
             messagebox.showinfo("Success", "Data Updated")
     
     def delete(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("delete from pharmacy where Ref_No=%s", (self.ref_var.get(),))
         conn.commit()
@@ -497,7 +557,12 @@ class PharmacyManagementSystem:
         self.root.destroy()
     
     def search_data(self):
-        conn = mysql.connector.connect(host="localhost", user="root", password="Mkomko123@", database="pharmacy")
+        conn = mysql.connector.connect(
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME")
+        )
         c = conn.cursor()
         c.execute("select * from pharmacy where "+str(self.search_var.get())+" LIKE '%"+str(self.search_txt_var.get())+"%'")
         rows = c.fetchall()
